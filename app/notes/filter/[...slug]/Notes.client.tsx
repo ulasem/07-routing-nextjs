@@ -11,19 +11,21 @@ import Pagination from '@/components/Pagination/Pagination';
 import Modal from '@/components/Modal/Modal';
 import NoteForm from '@/components/NoteForm/NoteForm';
 
-import css from './page.module.css';
+import css from './NotesClient.module.css';
 
-function NotesClient() {
+interface NotesByTagClientProps {
+  tag: string;
+}
+
+function NotesByTagClient({ tag }: NotesByTagClientProps) {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [debouncedSearch] = useDebounce(search, 500);
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['notes', page, debouncedSearch],
-    queryFn: () => fetchNotes(page, debouncedSearch),
+    queryKey: ['notes', page, debouncedSearch, tag],
+    queryFn: () => fetchNotes(page, debouncedSearch, tag),
     placeholderData: keepPreviousData,
     refetchOnMount: false,
   });
@@ -65,4 +67,4 @@ function NotesClient() {
   );
 }
 
-export default NotesClient;
+export default NotesByTagClient;
