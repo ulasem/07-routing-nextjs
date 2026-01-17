@@ -56,7 +56,11 @@ function NotesByTagClient({ tag }: NotesByTagClientProps) {
       {isLoading && <p>Loading...</p>}
       {isError && <p>Error loading notes.</p>}
 
-      {data && data.notes.length > 0 && <NoteList notes={data.notes} />}
+      {data && data.notes.length > 0 ? (
+        <NoteList notes={data.notes} />
+      ) : (
+        <p className={css.empty}>No notes found.</p>
+      )}
 
       {isModalOpen && (
         <Modal onClose={() => setIsModalOpen(false)}>

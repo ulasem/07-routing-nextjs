@@ -4,7 +4,7 @@ import css from './LayoutNotes.module.css';
 interface NoteLayoutProps {
   sidebar: React.ReactNode;
   children: React.ReactNode;
-  modal: React.ReactNode;
+  modal?: React.ReactNode;
 }
 
 function NoteLayout({ sidebar, children, modal }: NoteLayoutProps) {
