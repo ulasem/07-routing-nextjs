@@ -3,18 +3,17 @@ import { fetchNotes } from '@/lib/api';
 import NotesByTagClient from './Notes.client';
 
 type Props = {
-  params: Promise<{ slug: string[] }>;
+  params: Promise<{ page: number; search: string; slug: string[] }>;
 };
 
 async function NotesByTag({ params }: Props) {
-  const { slug } = await params;
+  const { page, search, slug } = await params;
   const tag = slug[0];
-
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery({
-    queryKey: ['notes', 'tag', tag],
-    queryFn: () => fetchNotes(1, '', tag),
+    queryKey: ['notes', page, search, tag],
+    queryFn: () => fetchNotes(page, search, tag),
   });
 
   return (
